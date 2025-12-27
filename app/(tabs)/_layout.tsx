@@ -4,6 +4,7 @@ import { Tabs } from "expo-router";
 
 const TabsLayout = () => {
   const { colors } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
@@ -18,23 +19,28 @@ const TabsLayout = () => {
           paddingTop: 10,
         },
         tabBarLabelStyle: {
-          fontSize: 18,
+          fontSize: 12,
           fontWeight: "600",
         },
+        headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: () => <Ionicons name="home" size={24} />,
+          title: "Todos",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="flash-outline" size={size} color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
-          tabBarIcon: () => <Ionicons name="settings-outline" size={24} />,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
+          ),
         }}
       />
     </Tabs>
