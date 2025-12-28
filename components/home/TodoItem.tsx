@@ -13,7 +13,7 @@ import { useState } from "react";
 import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const TodoItem = ({ item }: { item: Todo }) => {
-  const { colors } = useTheme();
+  const { colors, isDarkMode } = useTheme();
   const homeStyles = createHomeStyles(colors);
 
   const { todos } = useTodos();
@@ -26,7 +26,9 @@ const TodoItem = ({ item }: { item: Todo }) => {
       await toggleTodo(id, !todos.find((todo) => todo.id === id)?.isCompleted);
     } catch (error) {
       console.error("Error toggling todo", error);
-      Alert.alert("Error", "Failed to toggle todo");
+      Alert.alert("Error", "Failed to toggle todo", [], {
+        userInterfaceStyle: isDarkMode ? "dark" : "light",
+      });
     }
   };
 
@@ -37,20 +39,29 @@ const TodoItem = ({ item }: { item: Todo }) => {
         setIsEditing(false);
       } catch (error) {
         console.error("Error updating todo", error);
-        Alert.alert("Error", "Failed to update todo");
+        Alert.alert("Error", "Failed to update todo", [], {
+          userInterfaceStyle: isDarkMode ? "dark" : "light",
+        });
       }
     }
   };
 
   const handleDeleteTodo = async () => {
-    Alert.alert("Delete Todo", "Are you sure you want to delete this todo?", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(
+      "Delete Todo",
+      "Are you sure you want to delete this todo?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () => deleteTodo(item.id),
+        },
+      ],
       {
-        text: "Delete",
-        style: "destructive",
-        onPress: () => deleteTodo(item.id),
-      },
-    ]);
+        userInterfaceStyle: isDarkMode ? "dark" : "light",
+      }
+    );
   };
 
   const handleCancelEdit = () => {

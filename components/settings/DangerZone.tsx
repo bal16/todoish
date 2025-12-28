@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 
 const DangerZone = () => {
-  const { colors } = useTheme();
+  const { colors, isDarkMode } = useTheme();
 
   const settingsStyles = createSettingsStyles(colors);
 
@@ -34,7 +34,10 @@ const DangerZone = () => {
             }
           },
         },
-      ]
+      ],
+      {
+        userInterfaceStyle: isDarkMode ? "dark" : "light",
+      }
     );
   };
 

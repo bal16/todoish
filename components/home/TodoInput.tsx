@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Alert, TextInput, TouchableOpacity, View } from "react-native";
 
 const TodoInput = () => {
-  const { colors } = useTheme();
+  const { colors, isDarkMode } = useTheme();
   const homeStyles = createHomeStyles(colors);
 
   const [newTodo, setNewTodo] = useState("");
@@ -19,7 +19,9 @@ const TodoInput = () => {
         setNewTodo("");
       } catch (error) {
         console.error("Error adding a todo", error);
-        Alert.alert("Error", "Failed to add todo");
+        Alert.alert("Error", "Failed to add todo", [], {
+          userInterfaceStyle: isDarkMode ? "dark" : "light",
+        });
       }
     }
   };
