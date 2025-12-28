@@ -2,25 +2,31 @@ import { createSettingsStyles } from "@/assets/styles/settings.styles";
 import useTheme from "@/hooks/useTheme";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+// import { useState } from "react";
 import { Switch, Text, View } from "react-native";
 
 const Preferences = () => {
-  const [isAutoSync, setIsAutoSync] = useState(true);
-  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
+  // const [isAutoSync, setIsAutoSync] = useState(true);
+  // const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
 
   const { isDarkMode, toggleDarkMode, colors } = useTheme();
 
   const settingsStyles = createSettingsStyles(colors);
 
   return (
-    <LinearGradient colors={colors.gradients.surface} style={settingsStyles.section}>
+    <LinearGradient
+      colors={colors.gradients.surface}
+      style={settingsStyles.section}
+    >
       <Text style={settingsStyles.sectionTitle}>Preferences</Text>
 
       {/* DARK MODE */}
       <View style={settingsStyles.settingItem}>
         <View style={settingsStyles.settingLeft}>
-          <LinearGradient colors={colors.gradients.primary} style={settingsStyles.settingIcon}>
+          <LinearGradient
+            colors={colors.gradients.primary}
+            style={settingsStyles.settingIcon}
+          >
             <Ionicons name="moon" size={18} color="#fff" />
           </LinearGradient>
           <Text style={settingsStyles.settingText}>Dark Mode</Text>
@@ -35,7 +41,7 @@ const Preferences = () => {
       </View>
 
       {/* NOTIFICATONS */}
-      <View style={settingsStyles.settingItem}>
+      {/* <View style={settingsStyles.settingItem}>
         <View style={settingsStyles.settingLeft}>
           <LinearGradient colors={colors.gradients.warning} style={settingsStyles.settingIcon}>
             <Ionicons name="notifications" size={18} color="#fff" />
@@ -49,10 +55,10 @@ const Preferences = () => {
           trackColor={{ false: colors.border, true: colors.warning }}
           ios_backgroundColor={colors.border}
         />
-      </View>
+      </View> */}
 
       {/* AUTO-SYNC */}
-      <View style={settingsStyles.settingItem}>
+      {/* <View style={settingsStyles.settingItem}>
         <View style={settingsStyles.settingLeft}>
           <LinearGradient colors={colors.gradients.success} style={settingsStyles.settingIcon}>
             <Ionicons name="notifications" size={18} color="#fff" />
@@ -66,7 +72,7 @@ const Preferences = () => {
           trackColor={{ false: colors.border, true: colors.success }}
           ios_backgroundColor={colors.border}
         />
-      </View>
+      </View> */}
     </LinearGradient>
   );
 };
