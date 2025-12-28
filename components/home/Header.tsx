@@ -11,7 +11,6 @@ const Header = () => {
   const { colors } = useTheme();
   const { summary, setSummary, todos } = useTodos();
 
-  console.info("Header summary:", summary);
   useEffect(() => {
     getTodosCompletionSummary().then(setSummary);
   }, [todos, setSummary]);
