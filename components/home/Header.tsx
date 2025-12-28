@@ -29,7 +29,7 @@ const Header = () => {
           colors={colors.gradients.primary}
           style={homeStyles.iconContainer}
         >
-          <Ionicons name="flash-outline" size={28} color="#fff" />
+          <Ionicons name="briefcase-outline" size={28} color="#fff" />
         </LinearGradient>
 
         <View style={homeStyles.titleTextContainer}>
