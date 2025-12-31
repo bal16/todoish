@@ -6,11 +6,43 @@ import {
   useState,
   type ReactNode,
 } from "react";
-// AsyncStorage is React Native’s simple, promise-based API for persisting small bits of data on a user’s device. Think of it as the mobile-app equivalent of the browser’s localStorage, but asynchronous and cross-platform.
+
+const palette = {
+  neutral: {
+    0: "#ffffff",
+    50: "#f8fafc",
+    100: "#f1f5f9",
+    200: "#e2e8f0",
+    300: "#cbd5e1",
+    400: "#94a3b8",
+    500: "#64748b",
+    600: "#475569",
+    700: "#334155",
+    800: "#1e293b",
+    900: "#0f172a",
+    950: "#020617",
+  },
+
+  primary: {
+    400: "#a78bfa",
+    500: "#8b5cf6",
+    600: "#7c3aed",
+    700: "#6d28d9",
+  },
+
+  success: { light: "#34d399", main: "#10b981", dark: "#059669" },
+  warning: { light: "#fbbf24", main: "#f59e0b", dark: "#d97706" },
+  danger: { light: "#f87171", main: "#ef4444", dark: "#dc2626" },
+  misc: {
+    shadowLight: "rgba(148, 163, 184, 0.15)",
+    shadowDark: "#000000",
+  },
+};
 
 export interface ColorScheme {
   bg: string;
   surface: string;
+  surfaceHighlight: string;
   text: string;
   textMuted: string;
   border: string;
@@ -36,60 +68,68 @@ export interface ColorScheme {
   statusBarStyle: "light-content" | "dark-content";
 }
 
-const lightColors: ColorScheme = {
-  bg: "#f8fafc",
-  surface: "#ffffff",
-  text: "#1e293b",
-  textMuted: "#64748b",
-  border: "#e2e8f0",
-  primary: "#3b82f6",
-  success: "#10b981",
-  warning: "#f59e0b",
-  danger: "#ef4444",
-  shadow: "#000000",
+export const lightColors: ColorScheme = {
+  bg: palette.neutral[50],
+  surface: palette.neutral[0],
+  surfaceHighlight: palette.neutral[100],
+  text: palette.neutral[900],
+  textMuted: palette.neutral[500],
+  border: palette.neutral[200],
+
+  primary: palette.primary[600],
+  success: palette.success.dark,
+  warning: palette.warning.dark,
+  danger: palette.danger.main,
+
+  shadow: palette.misc.shadowLight,
+
   gradients: {
-    background: ["#f8fafc", "#e2e8f0"],
-    surface: ["#ffffff", "#f8fafc"],
-    primary: ["#3b82f6", "#1d4ed8"],
-    success: ["#10b981", "#059669"],
-    warning: ["#f59e0b", "#d97706"],
-    danger: ["#ef4444", "#dc2626"],
-    muted: ["#9ca3af", "#6b7280"],
-    empty: ["#f3f4f6", "#e5e7eb"],
+    background: [palette.neutral[50], palette.neutral[100]],
+    surface: [palette.neutral[0], palette.neutral[50]],
+    primary: [palette.primary[500], palette.primary[700]],
+    success: [palette.success.main, palette.success.dark],
+    warning: [palette.warning.main, palette.warning.dark],
+    danger: [palette.danger.main, palette.danger.dark],
+    muted: [palette.neutral[200], palette.neutral[300]],
+    empty: [palette.neutral[100], palette.neutral[200]],
   },
   backgrounds: {
-    input: "#ffffff",
-    editInput: "#ffffff",
+    input: palette.neutral[0],
+    editInput: palette.neutral[50],
   },
-  statusBarStyle: "dark-content" as const,
+  statusBarStyle: "dark-content",
 };
 
-const darkColors: ColorScheme = {
-  bg: "#0f172a",
-  surface: "#1e293b",
-  text: "#f1f5f9",
-  textMuted: "#94a3b8",
-  border: "#334155",
-  primary: "#60a5fa",
-  success: "#34d399",
-  warning: "#fbbf24",
-  danger: "#f87171",
-  shadow: "#000000",
+export const darkColors: ColorScheme = {
+  bg: palette.neutral[950],
+  surface: palette.neutral[900],
+  surfaceHighlight: palette.neutral[800],
+  text: palette.neutral[50],
+  textMuted: palette.neutral[400],
+  border: palette.neutral[800],
+
+  primary: palette.primary[400],
+  success: palette.success.light,
+  warning: palette.warning.light,
+  danger: palette.danger.light,
+
+  shadow: palette.misc.shadowDark,
+
   gradients: {
-    background: ["#0f172a", "#1e293b"],
-    surface: ["#1e293b", "#334155"],
-    primary: ["#3b82f6", "#1d4ed8"],
-    success: ["#10b981", "#059669"],
-    warning: ["#f59e0b", "#d97706"],
-    danger: ["#ef4444", "#dc2626"],
-    muted: ["#374151", "#4b5563"],
-    empty: ["#374151", "#4b5563"],
+    background: [palette.neutral[950], "#0b0f19"],
+    surface: [palette.neutral[900], palette.neutral[800]],
+    primary: [palette.primary[400], palette.primary[600]],
+    success: [palette.success.light, palette.success.main],
+    warning: [palette.warning.light, palette.warning.main],
+    danger: [palette.danger.light, palette.danger.main],
+    muted: [palette.neutral[800], palette.neutral[700]],
+    empty: [palette.neutral[900], palette.neutral[800]],
   },
   backgrounds: {
-    input: "#1e293b",
-    editInput: "#0f172a",
+    input: palette.neutral[900],
+    editInput: palette.neutral[950],
   },
-  statusBarStyle: "light-content" as const,
+  statusBarStyle: "light-content",
 };
 
 interface IThemeContext {
@@ -104,7 +144,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // get the user's choice
     AsyncStorage.getItem("darkMode").then((value) => {
       if (value) setIsDarkMode(JSON.parse(value));
     });
