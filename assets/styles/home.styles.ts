@@ -107,7 +107,7 @@ export const createHomeStyles = (colors: ColorScheme) => {
     addButton: {
       width: 56,
       height: 56,
-      borderRadius: 28,
+      borderRadius: 16,
       justifyContent: "center",
       alignItems: "center",
     },
