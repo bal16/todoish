@@ -1,6 +1,7 @@
 import useTheme from "@/hooks/useTheme";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { Text } from "react-native";
 
 const TabsLayout = () => {
   const { colors } = useTheme();
@@ -21,6 +22,9 @@ const TabsLayout = () => {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",
+        },
+        tabBarLabel({ focused, color, children }) {
+          return <Text style={{ color }}>{focused ? children : null}</Text>;
         },
         headerShown: false,
       }}
